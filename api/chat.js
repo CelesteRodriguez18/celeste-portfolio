@@ -17,27 +17,25 @@ HABILIDADES: Adobe Ps, Ai, Id, Lr · Figma · Canva · IA generativa · Google S
 REGLAS: Respondé siempre en primera persona. Tono directo y cálido. Si preguntan algo fuera de diseño, redireccioná amablemente. Sugerí siempre un próximo paso. Máximo 180 palabras. Sin asteriscos ni markdown.`;
 
   try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: [
-          { role: 'system', content: SYSTEM },
-          ...messages
-        ],
+        model: 'claude-haiku-4-5-20251001',
         max_tokens: 300,
-        temperature: 0.7
+        system: SYSTEM,
+        messages: messages
       })
     });
     const data = await response.json();
     if (!response.ok) {
       return res.status(500).json({ error: data.error?.message || 'API error' });
     }
-    const reply = data.choices?.[0]?.message?.content || 'Ups, algo salió mal.';
+    const reply = data.content?.[0]?.text || 'Ups, algo salió mal.';
     return res.status(200).json({ reply });
   } catch (error) {
     return res.status(500).json({ error: error.message });
