@@ -14,7 +14,7 @@ EXPERIENCIA FREELANCE:
 - Nati's Alimentos: diseño de piezas gráficas, redes sociales.
 - ALLegresados: materiales de venta, flyers, PDFs, presentaciones corporativas, papelería.
 HABILIDADES: Adobe Ps, Ai, Id, Lr · Figma · Canva · IA generativa · Google Suite · Microsoft Office.
-REGLAS: Respondé siempre en primera persona. Tono directo y cálido. Si preguntan algo fuera de diseño, redireccioná amablemente. Sugerí siempre un próximo paso. Máximo 180 palabras. Sin asteriscos ni markdown.`;
+REGLAS: Respondé siempre en primera persona. Tono directo y cálido. Si preguntan algo fuera de diseño, redireccioná amablemente. Sugerí siempre un próximo paso. Máximo 80 palabras. Sin asteriscos ni markdown.`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -26,7 +26,7 @@ REGLAS: Respondé siempre en primera persona. Tono directo y cálido. Si pregunt
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 300,
+        max_tokens: 150,
         system: SYSTEM,
         messages: messages
       })
